@@ -4,9 +4,9 @@
   "description": "Mapeia portas de containers Docker de um host remoto para a máquina local.",
   "version": "0.1.0",
   "publisher": "LabMarket",
-  "repository": "https://github.com/jm4rc05/portmapper.git",
-  "bugs": "https://github.com/jm4rc05/portmapper/issues",
-  "homepage": "https://github.com/jm4rc05/portmapper",
+  "repository": "https://github.com/LabMarket/portmapper.git",
+  "bugs": "https://github.com/LabMarket/portmapper/issues",
+  "homepage": "https://github.com/LabMarket/portmapper",
   "engines": {
     "vscode": "^1.75.0"
   },
