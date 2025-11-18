@@ -54,8 +54,9 @@ async function startMapping(sshHostItem) {
     const sshHost = sshHostItem.label;
 
     if (activeHost === sshHost) {
-        vscode.window.showInformationMessage(`O mapeamento para '${sshHost}' já está ativo.`);
-        return;
+        vscode.window.showInformationMessage(`Parando mapeamento para '${sshHost}'.`);
+        await stopAllTunnels();
+        return; // Ação concluída, saímos da função.
     }
 
     // Encerra túneis antigos antes de começar um novo mapeamento
@@ -227,8 +228,8 @@ class SshHost extends vscode.TreeItem {
         this.contextValue = 'sshHost';
 
         this.command = {
-            command: 'docker-port-mapper.start',
-            title: 'Iniciar Mapeamento',
+            command: 'docker-port-mapper.start', // O mesmo comando agora serve para ligar/desligar
+            title: isActive ? 'Parar Mapeamento' : 'Iniciar Mapeamento',
             arguments: [this]
         };
 
@@ -236,7 +237,7 @@ class SshHost extends vscode.TreeItem {
             this.iconPath = new vscode.ThemeIcon('debug-start', new vscode.ThemeColor('debugIcon.startForeground'));
             this.description = "Ativo";
         } else {
-            this.iconPath = new vscode.ThemeIcon('circle-outline');
+            this.iconPath = new vscode.ThemeIcon('debug-stop', new vscode.ThemeColor('debugIcon.stopForeground'));
         }
     }
 }
