@@ -1,0 +1,59 @@
+{
+  "name": "docker-port-mapper",
+  "displayName": "Docker Port Mapper",
+  "description": "Mapeia portas de containers Docker de um host remoto para a máquina local.",
+  "version": "0.1.0",
+  "publisher": "LabMarket",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:portmapper-hosts-view"
+  ],
+  "enabledApiProposals": [
+    "tunnels"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "portmapper-container",
+          "title": "Port Mapper",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "portmapper-container": [
+        {
+          "id": "portmapper-hosts-view",
+          "name": "Hosts SSH"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "docker-port-mapper.start",
+        "title": "Docker Port Mapper: Iniciar Mapeamento"
+      },
+      {
+        "command": "docker-port-mapper.stop",
+        "title": "Docker Port Mapper: Parar Todos os Mapeamentos"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "vscode-dts main"
+  },
+  "dependencies": {
+    "get-port": "^5.1.1"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.75.0",
+    "vscode-dts": "^0.3.3"
+  }
+}
