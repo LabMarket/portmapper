@@ -38,6 +38,13 @@ function activate(context) {
     // Registra o comando para parar todos os túneis
     let stopCommand = vscode.commands.registerCommand('docker-port-mapper.stop', stopAllTunnels);
 
+    // Registra o comando para recarregar a lista de hosts
+    let refreshCommand = vscode.commands.registerCommand('docker-port-mapper.refresh', () => {
+        if (sshHostProvider) {
+            sshHostProvider.refresh();
+        }
+    });
+
     // Registra o comando para editar o arquivo de configuração SSH
     let editSshConfigCommand = vscode.commands.registerCommand('docker-port-mapper.editSshConfig', async () => {
         const sshConfigPath = path.join(os.homedir(), '.ssh', 'config');
@@ -50,7 +57,7 @@ function activate(context) {
     });
 
     // Adiciona os comandos ao contexto para que sejam descartados na desativação
-    context.subscriptions.push(treeView, startCommand, stopCommand, editSshConfigCommand);
+    context.subscriptions.push(treeView, startCommand, stopCommand, refreshCommand, editSshConfigCommand);
 }
 
 /**

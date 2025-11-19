@@ -56,6 +56,11 @@
         "title": "Docker Port Mapper: Parar Todos os Mapeamentos"
       },
       {
+        "command": "docker-port-mapper.refresh",
+        "title": "Recarregar Hosts SSH",
+        "icon": "$(refresh)"
+      },
+      {
         "command": "docker-port-mapper.editSshConfig",
         "title": "Editar Configuração SSH",
         "icon": "$(gear)"
@@ -63,6 +68,11 @@
     ],
     "menus": {
       "view/title": [
+        {
+          "command": "docker-port-mapper.refresh",
+          "when": "view == portmapper-hosts-view",
+          "group": "navigation"
+        },
         {
           "command": "docker-port-mapper.editSshConfig",
           "when": "view == portmapper-hosts-view",
