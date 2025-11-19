@@ -2,7 +2,7 @@
   "name": "docker-port-mapper",
   "displayName": "Docker Port Mapper",
   "description": "Mapeia portas de containers Docker de um host remoto para a máquina local.",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "license": "MIT",
   "publisher": "LabMarket",
   "repository": "https://github.com/LabMarket/portmapper.git",
