@@ -60,7 +60,16 @@
         "title": "Editar Configuração SSH",
         "icon": "$(gear)"
       }
-    ]
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "docker-port-mapper.editSshConfig",
+          "when": "view == portmapper-hosts-view",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
