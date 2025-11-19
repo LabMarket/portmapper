@@ -1,0 +1,22 @@
+<svg width="128" height="128" viewBox="0 0 128 128"
+     xmlns="http://www.w3.org/2000/svg"
+     stroke="black" fill="none" stroke-width="3">
+
+  <!-- Socket -->
+  <rect x="10" y="34" width="40" height="60" rx="6" />
+
+  <!-- Socket holes (more spaced apart) -->
+  <circle cx="23" cy="64" r="5" />
+  <circle cx="37" cy="64" r="5" />
+
+  <!-- Plug body -->
+  <rect x="70" y="46" width="40" height="36" rx="5" />
+
+  <!-- Plug prongs (filled black) -->
+  <rect x="60" y="54" width="12" height="8" fill="black" stroke="none" />
+  <rect x="60" y="68" width="12" height="8" fill="black" stroke="none" />
+
+  <!-- Cable -->
+  <path d="M 110 64 C 118 64, 118 90, 125 90" />
+
+</svg>
