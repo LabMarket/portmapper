@@ -140,6 +140,7 @@ async function startMapping(sshHostItem) {
             let createdTunnelsCount = 0;
 
             const tunnelDescriptions = [];
+            const processedRemotePorts = new Set(); // Usaremos um Set para rastrear as portas remotas já mapeadas
             for (const line of portMappings) {
                 const mappings = line.split(',');
                 for (const mapping of mappings) {
@@ -147,6 +148,11 @@ async function startMapping(sshHostItem) {
                     const match = mapping.match(/(\d+)\/tcp/);
                     if (match && match[1]) {
                         const remotePort = parseInt(match[1], 10);
+
+                        // Pula esta porta se já criamos um túnel para ela (evita duplicatas de IPv4/IPv6)
+                        if (processedRemotePorts.has(remotePort)) {
+                            continue;
+                        }
 
                         // Encontra uma porta local livre a partir de 38000
                         const localPort = await getPort({ port: getPort.makeRange(38000, 39000) });
@@ -158,6 +164,7 @@ async function startMapping(sshHostItem) {
                         const description = `localhost:${localPort} -> ${remotePort}`;
                         tunnelDescriptions.push(description);
 
+                        processedRemotePorts.add(remotePort); // Adiciona a porta ao set de portas processadas
             updateBadgeCount(activeSshConnections.length);
                         createdTunnelsCount++;
                     }
