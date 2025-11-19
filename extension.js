@@ -14,6 +14,9 @@ const os = require('os');
 /** @type {SshHostProvider} */
 let sshHostProvider;
 
+/** @type {vscode.TreeView<vscode.TreeItem>} */
+let treeView; // Referência para a TreeView para podermos atualizar a badge
+
 /** @type {any[]} */
 let activeSshConnections = []; // Guarda as conexões SSH e servidores de túnel para poder encerrá-los
 
@@ -27,7 +30,7 @@ function activate(context) {
     console.log('A extensão "docker-port-mapper" está ativa.');
 
     sshHostProvider = new SshHostProvider();
-    const treeView = vscode.window.createTreeView('portmapper-hosts-view', { treeDataProvider: sshHostProvider });
+    treeView = vscode.window.createTreeView('portmapper-hosts-view', { treeDataProvider: sshHostProvider });
 
     // Registra o comando para iniciar o mapeamento
     let startCommand = vscode.commands.registerCommand('docker-port-mapper.start', startMapping);
@@ -48,6 +51,16 @@ function activate(context) {
 
     // Adiciona os comandos ao contexto para que sejam descartados na desativação
     context.subscriptions.push(treeView, startCommand, stopCommand, editSshConfigCommand);
+}
+
+/**
+ * Atualiza a badge da view com o número de conexões ativas.
+ * @param {number} count O número para exibir na badge.
+ */
+function updateBadgeCount(count) {
+    if (treeView) {
+        treeView.badge = { value: count, tooltip: `${count} túneis ativos` };
+    }
 }
 
 async function startMapping(sshHostItem) {
@@ -138,6 +151,7 @@ async function startMapping(sshHostItem) {
                         const description = `localhost:${localPort} -> ${remotePort}`;
                         tunnelDescriptions.push(description);
 
+            updateBadgeCount(activeSshConnections.length);
                         createdTunnelsCount++;
                     }
                 }
@@ -174,6 +188,7 @@ async function stopAllTunnels(showNotification = true) {
         activeSshConnections = [];
     }
 
+    updateBadgeCount(0); // Zera o contador da badge
     activeHost = null;
     if (sshHostProvider) {
         sshHostProvider.setActiveHost(null);

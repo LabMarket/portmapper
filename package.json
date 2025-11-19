@@ -39,6 +39,13 @@
         }
       ]
     },
+    "badges": [
+      {
+        "viewId": "portmapper-hosts-view",
+        "type": "number",
+        "description": "Número de túneis SSH ativos"
+      }
+    ],
     "commands": [
       {
         "command": "docker-port-mapper.start",
@@ -47,6 +54,11 @@
       {
         "command": "docker-port-mapper.stop",
         "title": "Docker Port Mapper: Parar Todos os Mapeamentos"
+      },
+      {
+        "command": "docker-port-mapper.editSshConfig",
+        "title": "Editar Configuração SSH",
+        "icon": "$(gear)"
       }
     ]
   },
